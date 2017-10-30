@@ -34,6 +34,7 @@ Vagrant.configure(2) do |config|
         USER_NAME="chinachu"
         WORK_DIR="/usr/local/chinachu"
         REPOSITORY="git://github.com/kanreisa/Chinachu.git"
+        sudo timedatectl set-timezone Asia/Tokyo && \
         echo "${MIRAKURUN_IP} container-mirakurun" | sudo tee -a /etc/hosts && \
         sudo sed -i.bak -e "s%http://[^ ]\+%http://ftp.jaist.ac.jp/pub/Linux/ubuntu/%g" /etc/apt/sources.list && \
         sudo apt update && \
