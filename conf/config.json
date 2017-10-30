@@ -23,6 +23,6 @@
   "wuiMdnsAdvertisement": true,
 
   "recordedFormat": "<category>/<title>/<channel-name>/[<date:yymmdd-HHMM>]<fulltitle> - <subtitle>.m2ts",
-  "storageLowSpaceThresholdMB": 3000,
+  "storageLowSpaceThresholdMB": 10000,
   "storageLowSpaceAction": "remove"
 }
