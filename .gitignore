@@ -10,5 +10,6 @@ recorded/*
 log/*
 !recorded/.gitkeep
 
-# vagrant logs
+# vagrant
 *.log
+.vagrant
