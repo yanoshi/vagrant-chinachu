@@ -1,0 +1,14 @@
+# chinachu data files
+data/*
+!data/.gitkeep
+
+# chinachu recorded files
+recorded/*
+!recorded/.gitkeep
+
+# chinachu logs
+log/*
+!recorded/.gitkeep
+
+# vagrant logs
+*.log
