@@ -43,7 +43,7 @@ Vagrant.configure(2) do |config|
           curl \
           git-core \
           vainfo && \
-        curl sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
+        curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
         sudo apt install -y nodejs && \
         sudo npm install pm2 -g && \
         sudo pm2 startup && \
