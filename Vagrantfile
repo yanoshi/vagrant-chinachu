@@ -30,31 +30,31 @@ Vagrant.configure(2) do |config|
     config.vm.provision :shell do |shell|
       shell.inline = <<-SHELL
         MIRAKURUN_IP=`netstat -rn | grep "^0.0.0.0 " | cut -d " " -f10`
-        USER_ID="12345"
-        USER_NAME="chinachu"
+        USER_NAME="vagrant"
         WORK_DIR="/usr/local/chinachu"
         REPOSITORY="git://github.com/kanreisa/Chinachu.git"
         sudo timedatectl set-timezone Asia/Tokyo && \
-        echo "${MIRAKURUN_IP} container-mirakurun" | sudo tee -a /etc/hosts && \
         sudo sed -i.bak -e "s%http://[^ ]\+%http://ftp.jaist.ac.jp/pub/Linux/ubuntu/%g" /etc/apt/sources.list && \
-        sudo apt update && \
-        sudo apt install -y \
+        echo "${MIRAKURUN_IP} container-mirakurun" | sudo tee -a /etc/hosts && \
+        sudo mkdir -p ${WORK_DIR} && \
+        sudo chown -R ${USER_NAME}:${USER_NAME} ${WORK_DIR} && \
+        sudo apt-get update && \
+        sudo apt-get install -y \
           build-essential \
           curl \
           git-core \
           vainfo && \
         curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && \
-        sudo apt install -y nodejs && \
+        sudo apt-get install -y nodejs &&
         sudo npm install pm2 -g && \
         sudo pm2 startup && \
-        sudo chown -R ubuntu:ubuntu /usr/local/chinachu && \
-        git clone ${REPOSITORY} /tmp/chinachu && \
-        cp -R /tmp/chinachu/* ${WORK_DIR} && \
+        sudo -u ${USER_NAME} git clone ${REPOSITORY} /tmp/chinachu && \
+        sudo -u ${USER_NAME} cp -R /tmp/chinachu/* ${WORK_DIR} && \
         sudo rm -R -f /tmp/chinachu && \
         sudo ln -sf /chinachu_conf/config.json ${WORK_DIR}/config.json && \
         sudo ln -sf /chinachu_conf/rules.json ${WORK_DIR}/rules.json && \
         cd ${WORK_DIR} && \
-        echo 1 | ./chinachu installer && \
+        echo 1 | sudo -u ${USER_NAME} ./chinachu installer && \
         sudo pm2 start processes.json && \
         sudo pm2 save && \
         echo "-----SUCCESS!!!!!!-----"
